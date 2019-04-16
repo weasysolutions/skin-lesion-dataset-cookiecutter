@@ -1,0 +1,16 @@
+# local package
+-e .
+
+# external requirements
+click
+Sphinx
+coverage
+awscli
+flake8
+numpy
+tensorflow
+pandas
+scikit-learn
+python-dotenv
+matplotlib
+Faker
