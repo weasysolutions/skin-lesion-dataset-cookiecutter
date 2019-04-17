@@ -4,15 +4,27 @@ import os
 import logging
 import sys
 import pandas as pd
-from images_in_features_subdirs.images_in_features_subdirs import images_in_features_subdirs 
-from non_duplicate_lesion_id.non_duplicate_lesion_id import non_duplicate_lesion_id
-from training_and_validation_sets.training_and_validation_sets import training_and_validation_sets
 
-#@click.command()
-#@click.argument('input_metadata_file', type=click.Path(exists=True))
-#@click.argument('images_dir', type=click.Path(exists=True))
-#@click.argument('train_dir', type=click.Path(exists=True))
-#@click.argument('val_dir', type=click.Path(exists=True))
+import os, sys, inspect
+
+cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile( inspect.currentframe() ))[0],"images_in_features_subdirs")))
+if cmd_subfolder not in sys.path:
+     sys.path.append(cmd_subfolder)
+        
+cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile( inspect.currentframe() ))[0],"non_duplicate_lesion_id")))
+if cmd_subfolder not in sys.path:
+     sys.path.append(cmd_subfolder)
+        
+cmd_subfolder = os.path.realpath(os.path.abspath(os.path.join(os.path.split(inspect.getfile( inspect.currentframe() ))[0],"training_and_validation_sets")))
+if cmd_subfolder not in sys.path:
+     sys.path.append(cmd_subfolder)
+                                
+
+from images_in_features_subdirs import images_in_features_subdirs 
+from non_duplicate_lesion_id import non_duplicate_lesion_id
+from training_and_validation_sets import training_and_validation_sets
+
+
 def build_features(**kwargs):
     
     
@@ -27,7 +39,6 @@ def build_features(**kwargs):
      Stores splitted sets in ../data/processed/base_dir/train_dir 
      and ../data/processed/base_dir/val_dir
     """
-    
     #load meta-data-set
     df = pd.read_csv(metadata_csv)
     
@@ -46,16 +57,19 @@ def build_features(**kwargs):
                                 train_dir = train_dir,
                                 val_dir = val_dir \
                               )
+    
      
-    # '../data/raw/HAM10000_metadata.csv'   
-    #'../data/processed/base_dir/val_dir'
-    #'../data/interim'
-    #'../data/processed/base_dir/train_dir '
+    logger = logging.getLogger(__name__)
+    logger.info('Features added. Data is ready for modelling.')
+
     
 if __name__ == '__main__':
     
+    import json 
+    
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
+    
+    data=json.loads(argv[1])
 
-
-    build_features(sys.argv[1],sys.argv[2],sys.argv[3])
+    build_features(data)

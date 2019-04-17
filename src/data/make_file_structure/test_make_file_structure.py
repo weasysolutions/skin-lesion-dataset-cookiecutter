@@ -1,4 +1,4 @@
-from make_file_structure import file_structure
+from make_file_structure import make_file_structure
 import tempfile
 import unittest
 import os

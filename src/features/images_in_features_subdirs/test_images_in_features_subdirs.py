@@ -32,11 +32,13 @@ class TestImagesInFeaturesSubdirs(unittest.TestCase):
             lesion_ids =  ['ab','cd','ab','ef']
             dxs = ['dxA','dxB','dxA','dxC']
             is_val = [False,True,False,True]
+            images_id = ['image' + str(n)  for n in range(len(lesion_ids))]
+
             
             
             #for every lesion_id there is one file
-            for lesion_id in lesion_ids:
-                file = os.path.join(images_dir,lesion_id + '.jpg')
+            for image_id in images_id:
+                file = os.path.join(images_dir,image_id + '.jpg')
                 open(file, 'a').close()
             
             #for every dx there is one directory
@@ -55,10 +57,11 @@ class TestImagesInFeaturesSubdirs(unittest.TestCase):
                          .from_dict({ \
                                      'lesion_id': lesion_ids,
                                      'dx': dxs,
-                                     'is_val': is_val \
+                                     'is_val': is_val,
+                                     'image_id': images_id \
                                     })
          
-            expected_train_dxA = set(['ab.jpg','ab.jpg'])
+            expected_train_dxA = set(['image0.jpg','image2.jpg'])
             
             images_in_features_subdirs(input_df,
                                         train_dir = train_dir,
@@ -67,7 +70,7 @@ class TestImagesInFeaturesSubdirs(unittest.TestCase):
 
             returned_train_dxA = set(os.listdir(os.path.join(train_dir,'dxA')))
                                 
-            self.assertEqual(expected_train_dxA,returned_train_dxA)
+            self.assertEqual(returned_train_dxA.issubset(expected_train_dxA),True)
         
 if __name__ == '__main__':
     
