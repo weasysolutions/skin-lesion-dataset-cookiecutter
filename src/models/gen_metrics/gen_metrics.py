@@ -1,5 +1,6 @@
 from tensorflow.keras.metrics import categorical_accuracy, top_k_categorical_accuracy
 
+
 def metrics(): 
     
     """ 
@@ -28,11 +29,7 @@ def metrics():
 if __name__ == '__main__':
 
     import sys
-    
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
-
-    metrics()
+    print(metrics())
 
     
     

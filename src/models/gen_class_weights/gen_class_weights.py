@@ -1,4 +1,4 @@
-def class_weights(**kwargs):
+def gen_class_weights(**kwargs):
     
     class_indices = kwargs['class_indices']
     
@@ -10,10 +10,10 @@ def class_weights(**kwargs):
     #More sensitive to Melanoma.
     for key,value in class_indices.items():
         
-        if value == 'mel'
-            class_weights[key] = 3.0
+        if key == 'mel':
+            class_weights[value] = 3.0
         else:
-            class_weights[key] = 1.0
+            class_weights[value] = 1.0
         
     return class_weights
     

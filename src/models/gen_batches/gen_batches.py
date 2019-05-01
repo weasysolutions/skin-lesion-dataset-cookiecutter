@@ -1,8 +1,11 @@
-from tensorflow.keras.applications.mobilenet.preprocess_input import PreprocessInput
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import tensorflow
 
+def hola_que_hace(**wkargs):
+    hola_que_hace = wkargs['hola_que_hace']
+    print(hola_que_hace)
+    
 
-def batches(**wkargs): 
+def gen_batches(**wkargs): 
     
     """ 
         Generate batches of tensor image data with real-time data augmentation.
@@ -11,15 +14,14 @@ def batches(**wkargs):
     
     train_path = wkargs['train_path']
     valid_path = wkargs['valid_path']
-    num_train_samples = wkargs['num_train_samples']
-    num_val_samples = wkargs['num_val_samples']
     train_batch_size = wkargs['train_batch_size']
     val_batch_size = wkargs['val_batch_size']
     image_size = wkargs['image_size']
 
     #Normalize with mobilenet preprocess input
-    datagen = ImageDataGenerator(    
-                   preprocessing_function = PreprocessInput )
+    datagen = tensorflow.keras.preprocessing.image.\
+                  ImageDataGenerator(    
+                      preprocessing_function = tensorflow.keras.applications.mobilenet.preprocess_input )
     
     batches = {}
     

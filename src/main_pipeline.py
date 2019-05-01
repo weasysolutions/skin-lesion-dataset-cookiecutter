@@ -12,7 +12,7 @@ from features.build_features import build_features
 def main_pipeline():
 
     print('starts dataset making...')
-    #make_dataset(input_filepath = '../data')
+    make_dataset(input_filepath = '../data')
     
     dirname = os.path.join(os.path.dirname( __file__ ),'..','data')
     
